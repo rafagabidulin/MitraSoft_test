@@ -1,13 +1,20 @@
 import React from 'react';
-import Card from 'react-bootstrap/card';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import { useAppSelector } from '../../hooks/hooks';
+import { selectPostById } from '../../store/post/selectors';
 
-const Post = () => (
-  <Card>
-    <Card.Header>Title</Card.Header>
-    <Card.Body>
-      <Card.Text>Text</Card.Text>
-    </Card.Body>
-  </Card>
-);
-
+const Post = ({ postId }: { postId: number | string }) => {
+  const post = useAppSelector((state) => selectPostById(state, { postId }));
+  return (
+    <Card style={{ width: '18rem' }}>
+      <Card.Img variant='top' src='holder.js/100px180' />
+      <Card.Body>
+        <Card.Title>{post?.title}</Card.Title>
+        <Card.Text>{post?.body}</Card.Text>
+        <Button variant='primary'>Comments</Button>
+      </Card.Body>
+    </Card>
+  );
+};
 export default Post;

@@ -1,35 +1,51 @@
-const prod = process.env.NODE_ENV === 'production';
-
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
+
+const isDevelopment = process.env.NODE_ENV !== 'production';
 
 module.exports = {
-  mode: prod ? 'production' : 'development',
+  mode: isDevelopment ? 'development' : 'production',
   entry: './src/index.tsx',
+  devServer: {
+    historyApiFallback: true
+  },
+  target: 'web',
   output: {
-    path: __dirname + '/dist/'
+    filename: 'bundle.[hash].js',
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/'
   },
-  module: {
-    rules: [
-      {
-        test: /\.(ts|tsx)$/,
-        exclude: /node_modules/,
-        resolve: {
-          extensions: ['.ts', '.tsx', '.js', '.json']
-        },
-        use: 'ts-loader'
-      },
-      {
-        test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader']
-      }
-    ]
-  },
-  devtool: prod ? undefined : 'source-map',
   plugins: [
     new HtmlWebpackPlugin({
       template: './public/index.html'
     }),
-    new MiniCssExtractPlugin()
-  ]
+    isDevelopment && new webpack.HotModuleReplacementPlugin(),
+    isDevelopment && new ReactRefreshWebpackPlugin()
+  ],
+  resolve: {
+    modules: [__dirname, 'src', 'node_modules'],
+    extensions: ['*', '.js', '.jsx', '.tsx', '.ts']
+  },
+  module: {
+    rules: [
+      {
+        test: /\.ts$|tsx/,
+        exclude: /node_modules/,
+        loader: require.resolve('babel-loader'),
+        options: {
+          plugins: [isDevelopment && require.resolve('react-refresh/babel')].filter(Boolean)
+        }
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      },
+      {
+        test: /\.png|svg|jpg|gif$/,
+        use: ['file-loader']
+      }
+    ]
+  }
 };

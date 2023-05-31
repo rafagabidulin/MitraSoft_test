@@ -9,6 +9,7 @@ interface PostState {
   posts: [];
   post?: [];
   id: string;
+  userid: string;
   status: string;
   title: string;
   body: string;

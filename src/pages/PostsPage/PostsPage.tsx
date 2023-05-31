@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { fetchPosts } from '../../store/post';
 import { selectPostIds } from '../../store/post/selectors';
@@ -16,12 +15,11 @@ const PostsPage = () => {
   }, [dispatch]);
 
   return (
-    <Container className='px-5 py-2'>
-      <Row xs={1} md={3} className='g-4 py-2 px-5'>
+    <Container className='px-5 py-4'>
+      <h1>Posts</h1>
+      <Row className='px-0 my-4 mx-0'>
         {posts.map((id) => (
-          <Col>
-            <Post key={id} postId={id} />
-          </Col>
+          <Post key={id} postId={id} />
         ))}
       </Row>
     </Container>

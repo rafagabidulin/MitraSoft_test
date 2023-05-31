@@ -3,9 +3,11 @@ import { configureStore } from '@reduxjs/toolkit';
 import loggerMiddleware from './middlewares/logger';
 // eslint-disable-next-line import/no-cycle
 import { postSlice } from './post';
+import { commentSlice } from './comment';
 
 const rootReducer = combineReducers({
-  post: postSlice.reducer
+  post: postSlice.reducer,
+  comment: commentSlice.reducer
 });
 
 export const store = configureStore({

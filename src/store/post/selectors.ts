@@ -11,9 +11,6 @@ export const selectPostEntities = (state: RootState) => selectPostModuleState(st
 export const selectPostById = (state: RootState, { postId }: { postId: number | string }) =>
   selectPostEntities(state)[postId];
 
-export const selectPostCommentsById = (state: RootState, { postId }: { postId: string }) =>
-  selectPostById(state, { postId })?.comments;
-
 export const selectPostLoadingStatus = (state: RootState) => selectPostModuleState(state).status;
 
 export const selectIsPostLoading = (state: RootState) =>

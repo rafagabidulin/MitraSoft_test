@@ -8,8 +8,14 @@ export const selectPostIds = (state: RootState) => selectPostModuleState(state).
 
 export const selectPostEntities = (state: RootState) => selectPostModuleState(state).entities;
 
+export const selectPostArrayEntities = (state: RootState) =>
+  Object.values(selectPostEntities(state));
+
 export const selectPostById = (state: RootState, { postId }: { postId: number | string }) =>
   selectPostEntities(state)[postId];
+
+export const selectPostsByUserId = (state: RootState, { userId }: { userId: number | string }) =>
+  selectPostArrayEntities(state).filter((post) => post?.userId === parseInt(userId, 10));
 
 export const selectPostLoadingStatus = (state: RootState) => selectPostModuleState(state).status;
 

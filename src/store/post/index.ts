@@ -3,13 +3,14 @@ import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/too
 // eslint-disable-next-line import/no-cycle
 import { RootState } from '..';
 import LoadingStatuses from '../../constants/loadingStatuses';
+// eslint-disable-next-line import/no-cycle
 import { selectPostIds } from './selectors';
 
 interface PostState {
   posts: [];
   post?: [];
   id: string;
-  userid: string;
+  userId: string;
   status: string;
   title: string;
   body: string;

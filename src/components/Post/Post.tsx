@@ -19,7 +19,7 @@ const Post = ({ postId }: { postId: number | string }) => {
       <Card className='border-0 m-0'>
         <Card.Body>
           <div className='px-3'>
-            <Link to={`/user/${post?.userid}`}>
+            <Link to={`/user/${post?.userId}`}>
               <img className='my-2' src={user} alt='user' width='50px' />
             </Link>
             <Card.Title>{post?.title}</Card.Title>

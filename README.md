@@ -1,5 +1,7 @@
 # MitraSoft_test
 
+## [Deploy](https://mitrasoft.netlify.app/)
+
 Отборочное задание для соискателей на позицию Junior Frontend developer (React).
 Необходимо реализовать SPA (single page application) на React.
 

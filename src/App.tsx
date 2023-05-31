@@ -8,6 +8,7 @@ import Layout from './components/Layout/Layout';
 import PostsPage from './pages/PostsPage/PostsPage';
 import AboutMePage from './pages/AboutMePage/AboutMePage';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
+import { UserPage } from './pages/UserPage/UserPage';
 
 export const App = () => (
   <div>
@@ -17,6 +18,7 @@ export const App = () => (
           <Routes>
             <Route path='/' element={<PostsPage />} />
             <Route path='/about' element={<AboutMePage />} />
+            <Route path='user/:id' element={<UserPage />} />
             <Route path='*' element={<NotFoundPage />} />
           </Routes>
         </Layout>

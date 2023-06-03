@@ -16,8 +16,13 @@ interface PostState {
   body: string;
   comments: [];
 }
+const delay = () =>
+  new Promise((resolve) => {
+    setTimeout(resolve, 500);
+  });
 
 export const fetchPosts = createAsyncThunk('post/fetchPosts', async (_, thunkAPI) => {
+  await delay();
   if (selectPostIds(thunkAPI.getState() as RootState).length > 0) {
     return thunkAPI.rejectWithValue(LoadingStatuses.earlyAdded);
   }

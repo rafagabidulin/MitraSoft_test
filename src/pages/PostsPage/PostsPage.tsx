@@ -3,11 +3,12 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { fetchPosts } from '../../store/post';
-import { selectPostEntities } from '../../store/post/selectors';
+import { selectPostEntities, selectIsPostLoading } from '../../store/post/selectors';
 import Post from '../../components/Post/Post';
 import Search from '../../components/Search/Search';
 import Sort from '../../components/Sort/Sort';
 import PaginationComponent from '../../components/Pagination/Pagination';
+import PostPlaceholder from '../../components/PostPlaceholder/PostPlaceholder';
 
 const PostsPage = () => {
   const [value, setValue] = useState('');
@@ -15,6 +16,7 @@ const PostsPage = () => {
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
+  const isLoading = useAppSelector(selectIsPostLoading);
 
   const posts = useAppSelector((state) => selectPostEntities(state));
   const dispatch = useAppDispatch();
@@ -62,22 +64,25 @@ const PostsPage = () => {
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
 
+  const getPosts = () =>
+    isLoading
+      ? new Array(5).fill(null).map((_, index) => <PostPlaceholder key={index} />)
+      : Object.values(currentPosts).map(({ id }) => <Post key={id} postId={id} />);
+
   return (
     <Container className='px-5 py-4'>
-      <h1>Posts</h1>
-      <Search value={handleSearch} />
-      <Sort onChange={handleSort} />
-      <Row className='px-0 my-4 mx-0'>
-        {Object.values(currentPosts).map(({ id }) => (
-          <Post key={id} postId={id} />
-        ))}
-      </Row>
-      <PaginationComponent
-        postsPerPage={postsPerPage}
-        numberOfPosts={filteredPosts.length}
-        handlePageChange={handlePageChange}
-        currentPage={currentPage}
-      />
+      <h1 className='border-bottom'>Posts</h1>
+      <div className='my-4'>
+        <Search value={handleSearch} />
+        <Sort onChange={handleSort} />
+        <Row className='px-0 my-4 mx-0'>{getPosts()}</Row>
+        <PaginationComponent
+          postsPerPage={postsPerPage}
+          numberOfPosts={filteredPosts.length}
+          handlePageChange={handlePageChange}
+          currentPage={currentPage}
+        />
+      </div>
     </Container>
   );
 };

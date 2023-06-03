@@ -1,11 +1,19 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import { NavLink } from 'react-router-dom';
 
 const AboutMePage = () => (
-  <div>
-    <Container>
-      <h2>Здравствуй, гость! Меня зовут Габидулин Рафаэль.</h2>
+  <Container className='px-5 py-4'>
+    <div className='d-flex justify-content-between border-bottom'>
+      <h1>About me page</h1>
+      <NavLink to='/'>
+        <Button className='my-2 w-100'>Back to main page</Button>
+      </NavLink>
+    </div>
+    <div className='my-4'>
+      <h3>Здравствуй, гость! Меня зовут Габидулин Рафаэль.</h3>
       <p>Я начинающий Frontend-разработчик.</p>
       <p>Проживаю в г. Москва.</p>
       <p>
@@ -36,8 +44,8 @@ const AboutMePage = () => (
         документацию. Имею огромное желание расти и развиваться во Frontend-разработке. Буду рад
         обратной связи!
       </p>
-    </Container>
-  </div>
+    </div>
+  </Container>
 );
 
 export default AboutMePage;
